@@ -1,0 +1,67 @@
+<canvas width="600" height="400"></canvas>
+<script>
+
+    var tela = document.querySelector("canvas");
+    var pincel = tela.getContext("2d");
+
+    var x = 20;
+    var y = 20;
+
+    var esquerda = 37;
+    var cima = 38;
+    var direita = 39;
+    var baixo = 40;
+
+    var tamanhoMovimento = 10; 
+    //esse valor indica qtas "casas" vamos andar na nossa tela. 
+
+    function pintaTela() {
+        pincel.fillStyle = "lightgray";
+        pincel.fillRect(0,0,600,400);
+    }
+
+    function desenhaCirculo(x,y,raio){
+        pincel.fillStyle = "blue";
+        pincel.beginPath();
+        pincel.arc(x,y,raio, 0, 2*Math.PI);
+        pincel.fill();
+    }
+
+    function desenhaCobrinha() {
+        pincel.fillStyle = "yellow";
+        pincel.fillRect(300, 200, 20, 5)
+    }
+
+    function limpaTela(){
+        pincel.clearRect(0,0,600,400);
+    }
+
+    function atualizaTela (){
+        limpaTela();
+        pintaTela();
+        desenhaCirculo(x,y,10);
+        
+    }
+
+    setInterval(atualizaTela, 10);
+
+    function leDoTeclado(eventos){
+        if(eventos.keyCode == cima && y>10){
+            y = y - tamanhoMovimento;
+
+        } else if(eventos.keyCode == baixo && y < 390){
+            y = y + tamanhoMovimento;
+
+        } else if(eventos.keyCode == direita && x < 590){
+            x = x + tamanhoMovimento; 
+
+        } else if(eventos.keyCode == esquerda && x > 10){
+            x = x - tamanhoMovimento;            
+        } 
+
+        console.log(eventos.keyCode);
+    }
+
+    document.onkeydown = leDoTeclado;
+    // a funcao leDoTeclado será executada toda vez q uma tecla for pressionada. 
+</script>
